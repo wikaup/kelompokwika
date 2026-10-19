@@ -1,0 +1,77 @@
+<%- include('partials/header') %>
+
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+          <i class="bi bi-<%= siswa ? 'pencil-square' : 'person-plus' %> me-2"></i>
+          <%= title %>
+        </h4>
+      </div>
+      <div class="card-body">
+        <form action="<%= action %>" method="POST" novalidate>
+          <div class="mb-3">
+            <label for="nis" class="form-label">NIS <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="nis" name="nis" 
+                   value="<%= siswa ? siswa.nis : '' %>" 
+                   placeholder="Contoh: 2024001" required>
+            <div class="form-text">Nomor Induk Siswa (unik)</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="nama" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="nama" name="nama" 
+                   value="<%= siswa ? siswa.nama : '' %>" 
+                   placeholder="Contoh: Budi Santoso" required>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="kelas" class="form-label">Kelas <span class="text-danger">*</span></label>
+              <select class="form-select" id="kelas" name="kelas" required>
+                <option value="">-- Pilih Kelas --</option>
+                <% const kelasList = ['X', 'XI', 'XII']; %>
+                <% kelasList.forEach(k => { %>
+                  <option value="<%= k %>" <%= (siswa && siswa.kelas === k) ? 'selected' : '' %>>
+                    <%= k %>
+                  </option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="jurusan" class="form-label">Jurusan</label>
+              <select class="form-select" id="jurusan" name="jurusan">
+                <option value="">-- Pilih Jurusan --</option>
+                <% const jurusanList = ['RPL', 'TKJ', 'MM', 'OTKP', 'AKL', 'BDP']; %>
+                <% jurusanList.forEach(j => { %>
+                  <option value="<%= j %>" <%= (siswa && siswa.jurusan === j) ? 'selected' : '' %>>
+                    <%= j %>
+                  </option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" 
+                   value="<%= siswa ? siswa.email : '' %>" 
+                   placeholder="contoh@email.com">
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="/siswa" class="btn btn-secondary">
+              <i class="bi bi-arrow-left me-1"></i> Batal
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-save me-1"></i> <%= buttonText %>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,83 @@
+<%- include('partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="mb-1"><i class="bi bi-people-fill me-2"></i>Data Siswa</h2>
+    <p class="text-muted mb-0">Sistem Manajemen Data Siswa - CRUD Sederhana</p>
+  </div>
+  <% if (isLoggedIn) { %>
+    <a href="/siswa/tambah" class="btn btn-primary">
+      <i class="bi bi-plus-lg me-1"></i> Tambah Siswa
+    </a>
+  <% } %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped mb-0">
+        <thead class="table-primary">
+          <tr>
+            <th scope="col" width="50">#</th>
+            <th scope="col">NIS</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Kelas</th>
+            <th scope="col">Jurusan</th>
+            <th scope="col">Email</th>
+            <% if (isLoggedIn) { %>
+              <th scope="col" width="150" class="text-center">Aksi</th>
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (siswa.length === 0) { %>
+            <tr>
+              <td colspan="<%= isLoggedIn ? 7 : 6 %>" class="text-center py-5 text-muted">
+                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                Belum ada data siswa.
+                <% if (isLoggedIn) { %>
+                  <br><a href="/siswa/tambah">Tambah data pertama</a>
+                <% } %>
+              </td>
+            </tr>
+          <% } else { %>
+            <% siswa.forEach((s, index) => { %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><code><%= s.nis %></code></td>
+                <td class="fw-semibold"><%= s.nama %></td>
+                <td><span class="badge bg-info text-dark"><%= s.kelas %></span></td>
+                <td><%= s.jurusan || '-' %></td>
+                <td><%= s.email || '-' %></td>
+                <% if (isLoggedIn) { %>
+                  <td class="text-center">
+                    <a href="/siswa/edit/<%= s.id %>" class="btn btn-sm btn-warning me-1" title="Edit">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <form action="/siswa/hapus/<%= s.id %>" method="POST" class="d-inline" 
+                          onsubmit="return confirm('Yakin ingin menghapus data <%= s.nama %>?')">
+                      <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                <% } %>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer text-muted small">
+    Total data: <strong><%= siswa.length %></strong> siswa
+    <% if (!isLoggedIn) { %>
+      <span class="float-end">
+        <i class="bi bi-info-circle me-1"></i>
+        Login sebagai Admin untuk menambah/edit/hapus data
+      </span>
+    <% } %>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,52 @@
+/* Custom styles for CRUD Siswa */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+}
+
+main {
+  flex: 1;
+}
+
+.card {
+  border: none;
+  border-radius: 0.75rem;
+}
+
+.card-header {
+  border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+.table th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navbar-brand {
+  letter-spacing: 0.5px;
+}
+
+code {
+  background-color: #e9ecef;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.badge {
+  font-weight: 500;
+}
+
+/* Smooth transitions */
+.btn, .nav-link {
+  transition: all 0.2s ease;
+}
+
+/* Responsive table improvements */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+}
